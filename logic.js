@@ -13,3 +13,8 @@ function getComputerChoice() {
     }
     return(output)
 }
+function getHumanChoice(){
+    input=prompt("Enter your choice between Rock, Scissors and Paper")
+    console.log(input)
+}
+getHumanChoice()
