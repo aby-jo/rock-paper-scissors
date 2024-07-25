@@ -1,7 +1,7 @@
 console.log("Hello World")
 let humanscore=0
 let computerscore=0
-function playGame(){
+let text
     function getComputerChoice() {
         rand=100*Math.random();
         let output
@@ -16,14 +16,8 @@ function playGame(){
         }
         return(output)
     }
-    function getHumanChoice(){
-        input=prompt("Enter your choice between Rock, Scissors and Paper")
-        return input
-    }
     function playRound(humanchoice,computerchoice){
-        humanchoice=humanchoice.toLowerCase()
         let output
-        if (humanchoice== "rock"||humanchoice=="scissors"||humanchoice=="paper"){
         if(humanchoice==computerchoice){
             output=`You both played ${humanchoice} so it is a draw `
         }
@@ -43,18 +37,54 @@ function playGame(){
             output=`You win as ${humanchoice} beats ${computerchoice}`
             humanscore++
         }
-        console.log(output)
-        }
-        else(console.log("Wrong Input"))
+        output=output+","+"Your Score: "+humanscore+" Computer Score: "+computerscore
+        return output
 
 }
-
+function playGame(input){
     computerchoice=getComputerChoice()
-    humanchoice=getHumanChoice()
-    playRound(humanchoice,computerchoice)
+    console.log(computerchoice)
+    text=playRound(input,computerchoice)
+    addtheanswer(text)
+    if(humanscore==5){
+        addtheanswer("You Win")
+        humanscore=0
+        computerscore=0
+    }
+    else if(computerscore==5){
+        addtheanswer("You Lose")
+        humanscore=0
+        computerscore=0
+    }
 
 }
-for(let i=0;i<5;i++){
-    playGame()
+let rock_btn=document.createElement("button")
+let paper_btn=document.createElement("button")
+let scissors_btn=document.createElement("button")
+rock_btn.addEventListener("click",()=>{
+    let input="rock"
+    playGame(input)
+})
+rock_btn.textContent="Rock"
+paper_btn.addEventListener("click",()=>{
+    let input="paper"
+    playGame(input)
+})
+paper_btn.textContent="Paper"
+scissors_btn.addEventListener("click",()=>{
+    let input="scissors"
+    playGame(input)
+})
+scissors_btn.textContent="Scissors"
+let bod=document.querySelector("body")
+bod.appendChild(rock_btn)
+bod.appendChild(scissors_btn)
+bod.appendChild(paper_btn)
+//new div to show the output
+let div=document.createElement("div")
+function addtheanswer(text){
+    let para=document.createElement("p")
+    para.textContent=text
+    div.appendChild(para)
 }
-console.log("Your score is",humanscore,"Computer Score is",computerscore)
+bod.appendChild(div)
